@@ -3,6 +3,7 @@ package tn.utss.control;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import tn.utss.model.SubCategory;
 import tn.utss.service.SubCategoryServiceImpl;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000/")
 @RequestMapping("/utss/tn")
 public class SubCategoryRESTController {
 
@@ -37,9 +39,9 @@ public class SubCategoryRESTController {
 
 	}
 
-	@PostMapping(value = "/addSubCategory/{idCategory}")
-	public SubCategory addSubCategory(@RequestBody SubCategory SubCategory,@PathVariable long idCategory) {
-		serviceSubCategory.addSubCategory(SubCategory,idCategory);
+	@PostMapping(value = "/addSubCategory")
+	public SubCategory addSubCategory(@RequestBody SubCategory SubCategory) {
+		serviceSubCategory.addSubCategory(SubCategory);
 		return SubCategory;
 
 	}

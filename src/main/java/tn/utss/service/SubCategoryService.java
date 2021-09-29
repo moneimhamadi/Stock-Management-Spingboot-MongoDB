@@ -12,7 +12,7 @@ public interface SubCategoryService {
 
 	SubCategory retrieveSubCategory(long idSubCategory);
 
-	SubCategory addSubCategory(SubCategory sc,long idCategory);
+	SubCategory addSubCategory(SubCategory sc);
 
 	SubCategory updateSubCategory(SubCategory sc);
 

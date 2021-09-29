@@ -22,8 +22,10 @@ import com.mongodb.client.result.UpdateResult;
 
 import tn.utss.model.Product;
 import tn.utss.model.Stock;
+import tn.utss.model.SubCategory;
 import tn.utss.repository.ProductRepository;
 import tn.utss.repository.StockRepository;
+import tn.utss.repository.SubCategoryRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -41,6 +43,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	StockRepository stockRepository;
+	
+	@Autowired
+	SubCategoryRepository SubCategoryRepository;
 	
  
 
@@ -63,11 +68,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product addProduct(Product p,long idStock) {
+	public Product addProduct(Product p,long idStock,long idSubcategory) {
 		p.setIdProduct(sequenceGeneratorService.generateSequence(Product.SEQUENCE_NAME));
 		Stock Stk=stockRepository.findById(idStock).get();
+		SubCategory subCategory=SubCategoryRepository.findById(idSubcategory).get();
 		Stk.getStockProducts().add(p);
+		subCategory.getProducts().add(p);
 		stockRepository.save(Stk);
+		SubCategoryRepository.save(subCategory);
 		return productRepository.save(p);
 	}
 

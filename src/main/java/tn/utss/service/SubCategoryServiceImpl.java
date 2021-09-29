@@ -1,5 +1,6 @@
 package tn.utss.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.utss.model.Category;
+import tn.utss.model.Product;
 import tn.utss.model.SubCategory;
 import tn.utss.repository.CategoryRepository;
 import tn.utss.repository.SubCategoryRepository;
@@ -40,10 +42,10 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 	}
 
 	@Override
-	public SubCategory addSubCategory(SubCategory sc,long idCategory) {
+	public SubCategory addSubCategory(SubCategory sc) {
 		sc.setIdSubCategory(sequenceGeneratorService.generateSequence(SubCategory.SEQUENCE_NAME));
-		Category cat=CategoryRepository.findById(idCategory).get();
-		sc.setCategory(cat);
+		List<Product> SubCategoryProducts=new ArrayList<Product>();
+		sc.setProducts(SubCategoryProducts);
 		return subCategoryRepository.save(sc);
 	}
 

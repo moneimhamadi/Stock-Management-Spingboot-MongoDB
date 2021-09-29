@@ -42,6 +42,8 @@ public class Product implements Serializable {
 	private String imageProd;
 	@Field(value = "Barcodeprod")
 	private String barcode;
+	@Field(value = "fileName")
+	private String fileName;
 	
 	
 	public Product(String titleProduct, String descriptionProduct, int quantityProduct, float priceProduct,
@@ -220,6 +222,30 @@ public class Product implements Serializable {
 	
 
 
+
+	public Product(String titleProduct, String descriptionProduct, int quantityProduct, float priceProduct,
+			float weightProduct, float buyingPriceProduct, int maxQuantityProduct, String imageProd, String barcode,
+			String fileName) {
+		super();
+		this.titleProduct = titleProduct;
+		this.descriptionProduct = descriptionProduct;
+		this.quantityProduct = quantityProduct;
+		this.priceProduct = priceProduct;
+		this.weightProduct = weightProduct;
+		this.buyingPriceProduct = buyingPriceProduct;
+		this.maxQuantityProduct = maxQuantityProduct;
+		this.imageProd = imageProd;
+		this.barcode = barcode;
+		this.fileName = fileName;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
 	@Override
 	public String toString() {

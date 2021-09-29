@@ -12,7 +12,7 @@ public interface ProductService {
 
 	Product retrieveProduct(long idProduct);
 
-	Product addProduct(Product p,long idStock);
+	Product addProduct(Product p,long idStock,long idSubCategory);
 
 	Product updateProduct(Product p,long idStock);
 	
