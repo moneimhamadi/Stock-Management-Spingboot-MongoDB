@@ -83,7 +83,7 @@ public class MovementRESTController {
 		return serviceMovement.desTruction(movement ,idStock);
 	}
 	
-	@PutMapping(value="/destruction/{idStock1}/{idStock2}")
+	@PutMapping(value="/toOtherStock/{idStock1}/{idStock2}")
 	public Movement toOtherStock(@RequestBody Movement movement ,
 									
 									@PathVariable("idStock1") long idStock1,@PathVariable("idStock2") long idStock2) {

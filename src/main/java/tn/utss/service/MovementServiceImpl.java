@@ -55,6 +55,7 @@ public class MovementServiceImpl implements MovementService {
 
 	
 	LocalDate localDate = LocalDate.now();
+	Date date = new Date();
 	
 	@Override
 	public List<Movement> retrieveAllMovements() {
@@ -70,7 +71,7 @@ public class MovementServiceImpl implements MovementService {
 
 	@Override
 	public Movement addMovement(Movement m) {
-	       Date date = new Date();
+	       
 
 		m.setIdMovement(sequenceGeneratorService.generateSequence(Movement.SEQUENCE_NAME));
 		List <Product> mvprods=new ArrayList<Product>();
@@ -99,21 +100,25 @@ public class MovementServiceImpl implements MovementService {
 	
 	@Override
 	public Movement supplyReception(Movement mov,long idStock) {
-		
+		Date date = new Date();
 		List<Product> StkProducts=new ArrayList<Product>();
 		List <Product> MovProducts=new ArrayList<Product>();
 		
 		mov.setIdMovement(sequenceGeneratorService.generateSequence(Movement.SEQUENCE_NAME));
 		mov.setMovType(MovementType.SUPPLYRECEPTION);
+		mov.setOrderDate(date);
 			
 		movementRepository.save(mov);
 		
 		 MovProducts=movementRepository.findById(mov.getIdMovement()).get().getMovProducts();
 		StkProducts=stockReporsitory.findById(idStock).get().getStockProducts();
-		
-		for(int i = 0; i < MovProducts.size(); i++) {								
+		System.out.println(StkProducts.toString());
+		for(int i = 0; i < MovProducts.size(); i++) {
+			System.out.println(MovProducts.get(i).getBarcode().toString());
 		    for (int j = 0; j < StkProducts.size(); j++) {
+		    	
 		        if (MovProducts.get(i).getBarcode().toString().equals(StkProducts.get(j).getBarcode().toString())){
+		        
 		        	StkProducts.get(j).setQuantityProduct(StkProducts.get(j).getQuantityProduct()+MovProducts.get(i).getQuantityProduct());
  		        		        
 		        ProductService.updateOneProduct(StkProducts.get(j), idStock);
@@ -138,7 +143,7 @@ public class MovementServiceImpl implements MovementService {
 		
 		mov.setIdMovement(sequenceGeneratorService.generateSequence(Movement.SEQUENCE_NAME));
 		mov.setMovType(MovementType.INTERNALPRODUCTION);
-			
+		mov.setOrderDate(date);
 		movementRepository.save(mov);
 		
 		 MovProducts=movementRepository.findById(mov.getIdMovement()).get().getMovProducts();
@@ -169,7 +174,7 @@ public class MovementServiceImpl implements MovementService {
 		
 		mov.setIdMovement(sequenceGeneratorService.generateSequence(Movement.SEQUENCE_NAME));
 		mov.setMovType(MovementType.DESTRUCTION);
-			
+		mov.setOrderDate(date);
 		movementRepository.save(mov);
 		
 		 MovProducts=movementRepository.findById(mov.getIdMovement()).get().getMovProducts();
@@ -194,6 +199,7 @@ public class MovementServiceImpl implements MovementService {
 		List <Product> MovProducts=new ArrayList<Product>();
 		
 		mov.setIdMovement(sequenceGeneratorService.generateSequence(Movement.SEQUENCE_NAME));
+		mov.setMovType(MovementType.TOSTORE);
 		mov.setMovType(MovementType.TOSTORE);
 			
 		movementRepository.save(mov);
