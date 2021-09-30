@@ -205,6 +205,7 @@ public class MovementServiceImpl implements MovementService {
 		movementRepository.save(mov);
 		
 		 MovProducts=movementRepository.findById(mov.getIdMovement()).get().getMovProducts();
+		
 		 SenderStock=stockReporsitory.findById(IdStock1).get().getStockProducts();
 		 RecieverStock=stockReporsitory.findById(idStock2).get().getStockProducts();
 		
@@ -220,9 +221,9 @@ public class MovementServiceImpl implements MovementService {
 		for(int i = 0; i < MovProducts.size(); i++) {								
 		    for (int j = 0; j < RecieverStock.size(); j++) {
 		        if (MovProducts.get(i).getBarcode().toString().equals(RecieverStock.get(j).getBarcode().toString())){
-		        	SenderStock.get(j).setQuantityProduct(SenderStock.get(j).getQuantityProduct()+MovProducts.get(i).getQuantityProduct());
+		        	RecieverStock.get(j).setQuantityProduct(RecieverStock.get(j).getQuantityProduct()+MovProducts.get(i).getQuantityProduct());
 	        
-		        ProductService.updateOneProduct(SenderStock.get(j), IdStock1);       
+		        ProductService.updateOneProduct(RecieverStock.get(j), idStock2);       
 		        }	
 		    }
 		    
